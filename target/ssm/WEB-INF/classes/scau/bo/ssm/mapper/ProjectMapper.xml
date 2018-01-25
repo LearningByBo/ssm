@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="scau.bo.ssm.mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="scau.bo.ssm.pojo.Project" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="target_money" property="targetMoney" jdbcType="DECIMAL" />
+    <result column="support_num" property="supportNum" jdbcType="BIGINT" />
+    <result column="raised_money" property="raisedMoney" jdbcType="DECIMAL" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="left_days" property="leftDays" jdbcType="BIGINT" />
+    <result column="limited_days" property="limitedDays" jdbcType="BIGINT" />
+    <result column="place_province_id" property="placeProvinceId" jdbcType="BIGINT" />
+    <result column="place_city_id" property="placeCityId" jdbcType="BIGINT" />
+    <result column="project_update" property="projectUpdate" jdbcType="VARCHAR" />
+    <result column="story_name" property="storyName" jdbcType="VARCHAR" />
+    <result column="story_content" property="storyContent" jdbcType="VARCHAR" />
+    <result column="support_name" property="supportName" jdbcType="VARCHAR" />
+    <result column="support_content" property="supportContent" jdbcType="VARCHAR" />
+    <result column="reward_name" property="rewardName" jdbcType="VARCHAR" />
+    <result column="reward_content" property="rewardContent" jdbcType="VARCHAR" />
+    <result column="aboutme_name" property="aboutmeName" jdbcType="VARCHAR" />
+    <result column="aboutme_content" property="aboutmeContent" jdbcType="VARCHAR" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
+    <result column="isdisabled" property="isdisabled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, target_money, support_num, raised_money, start_time, left_days, limited_days, 
+    place_province_id, place_city_id, project_update, story_name, story_content, support_name, 
+    support_content, reward_name, reward_content, aboutme_name, aboutme_content, image_id, 
+    isdisabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="scau.bo.ssm.pojo.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="scau.bo.ssm.pojo.ProjectExample" >
+    delete from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="scau.bo.ssm.pojo.Project" >
+    insert into project (id, name, target_money, 
+      support_num, raised_money, start_time, 
+      left_days, limited_days, place_province_id, 
+      place_city_id, project_update, story_name, 
+      story_content, support_name, support_content, 
+      reward_name, reward_content, aboutme_name, 
+      aboutme_content, image_id, isdisabled
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{targetMoney,jdbcType=DECIMAL}, 
+      #{supportNum,jdbcType=BIGINT}, #{raisedMoney,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{leftDays,jdbcType=BIGINT}, #{limitedDays,jdbcType=BIGINT}, #{placeProvinceId,jdbcType=BIGINT}, 
+      #{placeCityId,jdbcType=BIGINT}, #{projectUpdate,jdbcType=VARCHAR}, #{storyName,jdbcType=VARCHAR}, 
+      #{storyContent,jdbcType=VARCHAR}, #{supportName,jdbcType=VARCHAR}, #{supportContent,jdbcType=VARCHAR}, 
+      #{rewardName,jdbcType=VARCHAR}, #{rewardContent,jdbcType=VARCHAR}, #{aboutmeName,jdbcType=VARCHAR}, 
+      #{aboutmeContent,jdbcType=VARCHAR}, #{imageId,jdbcType=BIGINT}, #{isdisabled,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="scau.bo.ssm.pojo.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="targetMoney != null" >
+        target_money,
+      </if>
+      <if test="supportNum != null" >
+        support_num,
+      </if>
+      <if test="raisedMoney != null" >
+        raised_money,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="leftDays != null" >
+        left_days,
+      </if>
+      <if test="limitedDays != null" >
+        limited_days,
+      </if>
+      <if test="placeProvinceId != null" >
+        place_province_id,
+      </if>
+      <if test="placeCityId != null" >
+        place_city_id,
+      </if>
+      <if test="projectUpdate != null" >
+        project_update,
+      </if>
+      <if test="storyName != null" >
+        story_name,
+      </if>
+      <if test="storyContent != null" >
+        story_content,
+      </if>
+      <if test="supportName != null" >
+        support_name,
+      </if>
+      <if test="supportContent != null" >
+        support_content,
+      </if>
+      <if test="rewardName != null" >
+        reward_name,
+      </if>
+      <if test="rewardContent != null" >
+        reward_content,
+      </if>
+      <if test="aboutmeName != null" >
+        aboutme_name,
+      </if>
+      <if test="aboutmeContent != null" >
+        aboutme_content,
+      </if>
+      <if test="imageId != null" >
+        image_id,
+      </if>
+      <if test="isdisabled != null" >
+        isdisabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="targetMoney != null" >
+        #{targetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="supportNum != null" >
+        #{supportNum,jdbcType=BIGINT},
+      </if>
+      <if test="raisedMoney != null" >
+        #{raisedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leftDays != null" >
+        #{leftDays,jdbcType=BIGINT},
+      </if>
+      <if test="limitedDays != null" >
+        #{limitedDays,jdbcType=BIGINT},
+      </if>
+      <if test="placeProvinceId != null" >
+        #{placeProvinceId,jdbcType=BIGINT},
+      </if>
+      <if test="placeCityId != null" >
+        #{placeCityId,jdbcType=BIGINT},
+      </if>
+      <if test="projectUpdate != null" >
+        #{projectUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="storyName != null" >
+        #{storyName,jdbcType=VARCHAR},
+      </if>
+      <if test="storyContent != null" >
+        #{storyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="supportName != null" >
+        #{supportName,jdbcType=VARCHAR},
+      </if>
+      <if test="supportContent != null" >
+        #{supportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardContent != null" >
+        #{rewardContent,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutmeName != null" >
+        #{aboutmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutmeContent != null" >
+        #{aboutmeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null" >
+        #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="isdisabled != null" >
+        #{isdisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="scau.bo.ssm.pojo.ProjectExample" resultType="java.lang.Integer" >
+    select count(*) from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetMoney != null" >
+        target_money = #{record.targetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.supportNum != null" >
+        support_num = #{record.supportNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.raisedMoney != null" >
+        raised_money = #{record.raisedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leftDays != null" >
+        left_days = #{record.leftDays,jdbcType=BIGINT},
+      </if>
+      <if test="record.limitedDays != null" >
+        limited_days = #{record.limitedDays,jdbcType=BIGINT},
+      </if>
+      <if test="record.placeProvinceId != null" >
+        place_province_id = #{record.placeProvinceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.placeCityId != null" >
+        place_city_id = #{record.placeCityId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectUpdate != null" >
+        project_update = #{record.projectUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storyName != null" >
+        story_name = #{record.storyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storyContent != null" >
+        story_content = #{record.storyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supportName != null" >
+        support_name = #{record.supportName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supportContent != null" >
+        support_content = #{record.supportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rewardName != null" >
+        reward_name = #{record.rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rewardContent != null" >
+        reward_content = #{record.rewardContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aboutmeName != null" >
+        aboutme_name = #{record.aboutmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aboutmeContent != null" >
+        aboutme_content = #{record.aboutmeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageId != null" >
+        image_id = #{record.imageId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isdisabled != null" >
+        isdisabled = #{record.isdisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      target_money = #{record.targetMoney,jdbcType=DECIMAL},
+      support_num = #{record.supportNum,jdbcType=BIGINT},
+      raised_money = #{record.raisedMoney,jdbcType=DECIMAL},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      left_days = #{record.leftDays,jdbcType=BIGINT},
+      limited_days = #{record.limitedDays,jdbcType=BIGINT},
+      place_province_id = #{record.placeProvinceId,jdbcType=BIGINT},
+      place_city_id = #{record.placeCityId,jdbcType=BIGINT},
+      project_update = #{record.projectUpdate,jdbcType=VARCHAR},
+      story_name = #{record.storyName,jdbcType=VARCHAR},
+      story_content = #{record.storyContent,jdbcType=VARCHAR},
+      support_name = #{record.supportName,jdbcType=VARCHAR},
+      support_content = #{record.supportContent,jdbcType=VARCHAR},
+      reward_name = #{record.rewardName,jdbcType=VARCHAR},
+      reward_content = #{record.rewardContent,jdbcType=VARCHAR},
+      aboutme_name = #{record.aboutmeName,jdbcType=VARCHAR},
+      aboutme_content = #{record.aboutmeContent,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=BIGINT},
+      isdisabled = #{record.isdisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="scau.bo.ssm.pojo.Project" >
+    update project
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="targetMoney != null" >
+        target_money = #{targetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="supportNum != null" >
+        support_num = #{supportNum,jdbcType=BIGINT},
+      </if>
+      <if test="raisedMoney != null" >
+        raised_money = #{raisedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leftDays != null" >
+        left_days = #{leftDays,jdbcType=BIGINT},
+      </if>
+      <if test="limitedDays != null" >
+        limited_days = #{limitedDays,jdbcType=BIGINT},
+      </if>
+      <if test="placeProvinceId != null" >
+        place_province_id = #{placeProvinceId,jdbcType=BIGINT},
+      </if>
+      <if test="placeCityId != null" >
+        place_city_id = #{placeCityId,jdbcType=BIGINT},
+      </if>
+      <if test="projectUpdate != null" >
+        project_update = #{projectUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="storyName != null" >
+        story_name = #{storyName,jdbcType=VARCHAR},
+      </if>
+      <if test="storyContent != null" >
+        story_content = #{storyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="supportName != null" >
+        support_name = #{supportName,jdbcType=VARCHAR},
+      </if>
+      <if test="supportContent != null" >
+        support_content = #{supportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        reward_name = #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardContent != null" >
+        reward_content = #{rewardContent,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutmeName != null" >
+        aboutme_name = #{aboutmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutmeContent != null" >
+        aboutme_content = #{aboutmeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null" >
+        image_id = #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="isdisabled != null" >
+        isdisabled = #{isdisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="scau.bo.ssm.pojo.Project" >
+    update project
+    set name = #{name,jdbcType=VARCHAR},
+      target_money = #{targetMoney,jdbcType=DECIMAL},
+      support_num = #{supportNum,jdbcType=BIGINT},
+      raised_money = #{raisedMoney,jdbcType=DECIMAL},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      left_days = #{leftDays,jdbcType=BIGINT},
+      limited_days = #{limitedDays,jdbcType=BIGINT},
+      place_province_id = #{placeProvinceId,jdbcType=BIGINT},
+      place_city_id = #{placeCityId,jdbcType=BIGINT},
+      project_update = #{projectUpdate,jdbcType=VARCHAR},
+      story_name = #{storyName,jdbcType=VARCHAR},
+      story_content = #{storyContent,jdbcType=VARCHAR},
+      support_name = #{supportName,jdbcType=VARCHAR},
+      support_content = #{supportContent,jdbcType=VARCHAR},
+      reward_name = #{rewardName,jdbcType=VARCHAR},
+      reward_content = #{rewardContent,jdbcType=VARCHAR},
+      aboutme_name = #{aboutmeName,jdbcType=VARCHAR},
+      aboutme_content = #{aboutmeContent,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=BIGINT},
+      isdisabled = #{isdisabled,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

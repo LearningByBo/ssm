@@ -1,32 +1,25 @@
 package scau.bo.ssm.dto;
 
+import java.io.Serializable;
+
 /**
  * 封装json对象，所有返回结果都使用它
+ * 前后端交互数据标准
  */
-public class Result<T> {
+public class Result<T> implements Serializable {
 
-    private boolean success;// 是否成功标志
+    //成功标志
+    private boolean success;
 
-    private T data;// 成功时返回的数据
+    //失败消息
+    private String message;
 
-    private String error;// 错误信息
+    //时间撮
+    private long dateline = System.currentTimeMillis();
 
-    public Result() {
-    }
+    //结果对象
+    private T result;
 
-    // 成功时的构造器
-    public Result(boolean success, T data) {
-        this.success = success;
-        this.data = data;
-    }
-
-    // 错误时的构造器
-    public Result(boolean success, String error) {
-        this.success = success;
-        this.error = error;
-    }
-
-    // getter和setter方法
     public boolean isSuccess() {
         return success;
     }
@@ -35,19 +28,27 @@ public class Result<T> {
         this.success = success;
     }
 
-    public T getData() {
-        return data;
+    public String getMessage() {
+        return message;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getError() {
-        return error;
+    public long getDateline() {
+        return dateline;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setDateline(long dateline) {
+        this.dateline = dateline;
+    }
+
+    public T getResult() {
+        return result;
+    }
+
+    public void setResult(T result) {
+        this.result = result;
     }
 }
